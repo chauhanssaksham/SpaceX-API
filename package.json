@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bit/pedox.react-skeleton.skeleton": "^1.0.0",
     "axios": "^0.19.2",
     "concurrently": "^5.1.0",
     "express": "^4.17.1",
