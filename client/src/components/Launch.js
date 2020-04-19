@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import {Query} from 'react-apollo'
 import {Link} from 'react-router-dom'
 import classNames from 'classnames'
+import Skeleton from '@bit/pedox.react-skeleton.skeleton';
 
 const LAUNCH_QUERY = gql`
     query LaunchQuery($flight_number: Int!){
@@ -10,7 +11,7 @@ const LAUNCH_QUERY = gql`
             flight_number,
             mission_name,
             launch_success,
-            launch_date_local,
+            launch_year,
             rocket{
                 rocket_name,
                 rocket_id,
@@ -29,11 +30,52 @@ const Launch = (props) => {
             <Query query={LAUNCH_QUERY} variables={{flight_number}}>
                 {
                     ({loading, error, data}) => {
-                        if(loading){return <h4>Loading...</h4>}
+                        if(loading){
+                            return <div>
+                                <h4 className="display-4 my-3"><span className="text-dark">Mission:</span></h4>
+                                <p className="mb-3">
+                                    <ul className="list-group">
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                    </ul>
+                                    <h3 className="my-3">Rocket Details</h3>
+                                    <ul className="list-group">
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                        <li className="list-group-item"><Skeleton width="100%" height={20} dark /></li>
+                                    </ul>
+                                    <hr/>
+                                    <Link to="/" className="btn btn-secondary">Back</Link>
+                                </p>
+                            </div>
+                            }
                         if(error){console.log(error)}
                         else{
-                            console.log(data);
-                            return <h1>test</h1>
+                            const {mission_name, flight_number, launch_success, rocket, launch_year} = data.launch;
+                            return <div>
+                                <h4 className="display-4 my-3"><span className="text-dark">Mission:</span> {mission_name}</h4>
+                                <p className="mb-3">
+                                    <ul className="list-group">
+                                        <li className="list-group-item">Flight Number: {flight_number}</li>
+                                        <li className="list-group-item">Launch Year {launch_year}</li>
+                                        <li className="list-group-item">Launch Successful: 
+                                            <span className={classNames({
+                                                'text-success':launch_success,
+                                                'text-danger':!launch_success
+                                            })}> {launch_success?'Yes':'No'}</span>
+                                            </li>
+                                    </ul>
+                                    <h3 className="my-3">Rocket Details</h3>
+                                    <ul className="list-group">
+                                        <li className="list-group-item">Rocket ID: {rocket.rocket_id}</li>
+                                        <li className="list-group-item">Rocket Name: {rocket.rocket_name}</li>
+                                        <li className="list-group-item">Rocket Type: {rocket.rocket_type}</li>
+                                    </ul>
+                                    <hr/>
+                                    <Link to="/" className="btn btn-secondary">Back</Link>
+                                </p>
+                            </div>
                         }
                     }
                 }
