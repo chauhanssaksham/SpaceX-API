@@ -3,7 +3,8 @@ import gql from 'graphql-tag'
 import {Query} from 'react-apollo'
 import LaunchItem from './LaunchItem'
 import MissionKey from './MissionKey'
-import Skeleton from '@bit/pedox.react-skeleton.skeleton';
+import Skeleton from '@pedox/react-skeleton';
+import "@pedox/react-skeleton/dist/index.css";
 
 const Launches = () => {
     const LAUNCHES_QUERY = gql`
@@ -26,7 +27,7 @@ const Launches = () => {
                         const {loading, error, data} = res;
                         if(loading) {
                             return <Fragment>
-                            <div className="card mb-3" style={{background:"transparent"}}><Skeleton width="100%" height={120} dark /></div>
+                            <div className="card mb-3" style={{background:"transparent"}}><Skeleton/></div>
                             <div className="card mb-3" style={{background:"transparent"}}><Skeleton width="100%" height={120} dark /></div>
                             <div className="card mb-3" style={{background:"transparent"}}><Skeleton width="100%" height={120} dark /></div>
                             <div className="card mb-3" style={{background:"transparent"}}><Skeleton width="100%" height={120} dark /></div>

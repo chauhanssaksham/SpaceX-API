@@ -3,7 +3,8 @@ import gql from 'graphql-tag'
 import {Query} from 'react-apollo'
 import {Link} from 'react-router-dom'
 import classNames from 'classnames'
-import Skeleton from '@bit/pedox.react-skeleton.skeleton';
+import Skeleton from '@pedox/react-skeleton';
+import "@pedox/react-skeleton/dist/index.css";
 
 const LAUNCH_QUERY = gql`
     query LaunchQuery($flight_number: Int!){
